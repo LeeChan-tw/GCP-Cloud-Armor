@@ -26,7 +26,7 @@ variable "default_rules" {
 # --------------------------------- 
 # Throttling traffic rules
 # --------------------------------- 
-variable "throttle_rules" {
+variable "rate_based_ban_rules" {
     default = {
         def_rule = {
             action                              = "rate_based_ban"
@@ -39,6 +39,7 @@ variable "throttle_rules" {
             enforce_on_key                      = "ALL"                           #https://cloud.google.com/armor/docs/rate-limiting-overview#identifying_clients_for_rate_limiting
             rate_limit_threshold_count          = "200"
             rate_limit_threshold_interval_sec   = "30"
+            ban_duration_sec                    = "300"
             preview                             = true
         }
     }
