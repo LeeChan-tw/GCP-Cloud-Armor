@@ -69,7 +69,7 @@ variable "countries_rules" {
             action                              = "deny(403)"
             priority                            = "3000"
             expression                          = <<-EOT
-            '[CN, RU]'.contains(origin.region_code)
+            '[CN, RU, KR]'.contains(origin.region_code)
             EOT
             description                         = "Deny if region code is listed"
             preview                             = true
