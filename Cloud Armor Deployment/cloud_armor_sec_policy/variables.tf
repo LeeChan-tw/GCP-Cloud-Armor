@@ -29,16 +29,16 @@ variable "default_rules" {
 variable "throttle_rules" {
     default = {
         def_rule = {
-            action                              = "throttle"
-            priority                            = "4000"
+            action                              = "rate_based_ban"
+            priority                            = "900"
             versioned_expr                      = "SRC_IPS_V1"
             src_ip_ranges                       = ["*"]
-            description                         = "Throttling traffic rule"
+            description                         = "Ban source IP 5mins for request over 200 in 30secs"
             conform_action                      = "allow"
             exceed_action                       = "deny(429)"
             enforce_on_key                      = "ALL"                           #https://cloud.google.com/armor/docs/rate-limiting-overview#identifying_clients_for_rate_limiting
-            rate_limit_threshold_count          = "100"
-            rate_limit_threshold_interval_sec   = "60"
+            rate_limit_threshold_count          = "200"
+            rate_limit_threshold_interval_sec   = "30"
             preview                             = true
         }
     }
@@ -66,7 +66,9 @@ variable "countries_rules" {
         def_rule = {
             action                              = "deny(403)"
             priority                            = "3000"
-            expression                          = "'[CN, RU]'.contains(origin.region_code)"
+            expression                          = <<-EOT
+            '[CN, RU]'.contains(origin.region_code)
+            EOT
             description                         = "Deny if region code is listed"
             preview                             = true
         }
@@ -248,7 +250,7 @@ variable "cves_and_vulnerabilities_rules" {
     default = {
         # https://cloud.google.com/armor/docs/rule-tuning#cves_and_other_vulnerabilities
         rule_apache_log4j = {
-            action          = "deny(401)"
+            action          = "deny(403)"
             priority        = "2000"
             description     = "Apache Log4j CVE-2021-44228"
             preview         = true

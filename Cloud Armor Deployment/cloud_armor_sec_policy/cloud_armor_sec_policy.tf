@@ -4,8 +4,8 @@ variable "json_parsing" {}
 
 resource "google_compute_security_policy" "sec-policy" {
     project     = var.project_id
-    name        = "${var.project_id}-waf-policy"
-    description = "Default rule, Top 10 OWASP, Throttling & Log4J custom rules"
+    name        = "${var.project_id}-owasp-policy"
+    description = "Default rule, Top 10 OWASP, Rate-based ban & Log4J custom rules"
     advanced_options_config{
         log_level = var.log_level
         json_parsing = var.json_parsing
