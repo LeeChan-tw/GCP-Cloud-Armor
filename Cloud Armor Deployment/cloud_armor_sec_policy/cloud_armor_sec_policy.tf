@@ -54,7 +54,6 @@ resource "google_compute_security_policy" "sec-policy" {
 #                rate_limit_threshold {
 #                    count           = rule.value.rate_limit_threshold_count
 #                    interval_sec    = rule.value.rate_limit_threshold_interval_sec
-#                    ban_duration_sec = rule.value.ban_duration_sec
 #                }
 #            } 
 #        }
@@ -80,6 +79,7 @@ resource "google_compute_security_policy" "sec-policy" {
                 conform_action  = rule.value.conform_action
                 exceed_action   = rule.value.exceed_action
                 enforce_on_key  = rule.value.enforce_on_key
+                ban_duration_sec = rule.value.ban_duration_sec
                 rate_limit_threshold {
                     count           = rule.value.rate_limit_threshold_count
                     interval_sec    = rule.value.rate_limit_threshold_interval_sec

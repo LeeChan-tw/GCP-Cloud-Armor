@@ -54,6 +54,7 @@ variable "rate_based_ban_rules" {
         enforce_on_key                      = string
         rate_limit_threshold_count          = number
         rate_limit_threshold_interval_sec   = number
+        ban_duration_sec                    = number
         preview                             = bool
         })
     )
